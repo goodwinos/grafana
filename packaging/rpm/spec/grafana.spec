@@ -247,35 +247,22 @@ go run build.go build
 [ ! -d bin/arm ] && ln -sf linux-arm bin/arm
 chmod 644 %{SOURCE2} # silence an rpmlint non-issue
 
-# Set up buildroot directories
-install -d %{buildroot}%{_datadir}/%{name}
-install -d %{buildroot}%{_sharedstatedir}/%{name}
-install -d %{buildroot}%{_localstatedir}/log/%{name}
-install -d %{buildroot}%{_datadir}/doc/%{name}
-install -d %{buildroot}%{_sysconfdir}/%{name}
-install -d %{buildroot}%{_sysconfdir}/sysconfig
-install -d %{buildroot}%{_sbindir}
-install -d %{buildroot}%{_bindir}
-install -d -m 750 %{buildroot}%{_sharedstatedir}/%{name}/data
-install -d -m 750 %{buildroot}%{_sharedstatedir}/%{name}/data/plugins
-install -d %{buildroot}%{_rundir}/%{name}
-install -d %{buildroot}%{_tmpfilesdir}
-install -d %{buildroot}%{_docdir}/%{name}
-install -d %{buildroot}%{_mandir}/man1
-install -d %{buildroot}%{_defaultlicensedir}/%{name}
-install -d %{buildroot}%{_unitdir} # only needed for manual rpmbuilds
-
 # binaries
+install -d %{buildroot}%{_sbindir}
 install -p -m 755 bin/%{_arch}/%{name}-server %{buildroot}%{_sbindir}
 install -p -m 755 bin/%{_arch}/%{name}-cli %{buildroot}%{_sbindir}
 
 # other shared files, public html, webpack
+install -d %{buildroot}%{_datadir}/%{name}
 cp -a conf public %{buildroot}%{_datadir}/%{name}
 
 # man pages
+install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/man1/* %{buildroot}%{_mandir}/man1
 
 # config files
+install -d %{buildroot}%{_sysconfdir}/%{name}
+install -d %{buildroot}%{_sysconfdir}/sysconfig
 %if 0%{?fedora} || 0%{?rhel}
 # distro defaults
 install -p -m 640 conf/distro-defaults.ini %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
@@ -288,10 +275,20 @@ install -p -m 640 conf/defaults.ini %{buildroot}%{_datadir}/%{name}/conf/default
 install -p -m 640 conf/ldap.toml %{buildroot}%{_sysconfdir}/%{name}/ldap.toml
 install -p -m 640 packaging/rpm/sysconfig/grafana-server %{buildroot}%{_sysconfdir}/sysconfig/grafana-server
 
+# config database directory and plugins
+install -d %{buildroot}%{_sharedstatedir}/%{name}
+install -d -m 750 %{buildroot}%{_sharedstatedir}/%{name}/data
+install -d -m 750 %{buildroot}%{_sharedstatedir}/%{name}/data/plugins
+
+# log directory
+install -d %{buildroot}%{_localstatedir}/log/%{name}
+
 # systemd service files
+install -d %{buildroot}%{_unitdir} # only needed for manual rpmbuilds
 install -p -m 644 packaging/rpm/systemd/grafana-server.service %{buildroot}%{_unitdir}
 
 # daemon run pid file config for using tmpfs
+install -d %{buildroot}%{_tmpfilesdir}
 echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} {%GRAFANA_GROUP} -" >%{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %pre
