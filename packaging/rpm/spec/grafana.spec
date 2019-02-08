@@ -265,15 +265,20 @@ install -d %{buildroot}%{_sysconfdir}/%{name}
 install -d %{buildroot}%{_sysconfdir}/sysconfig
 %if 0%{?fedora} || 0%{?rhel}
 # distro defaults
-install -p -m 640 conf/distro-defaults.ini %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
-install -p -m 640 conf/distro-defaults.ini %{buildroot}%{_datadir}/%{name}/conf/defaults.ini
+install -p -m 640 conf/distro-defaults.ini \
+    %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
+install -p -m 640 conf/distro-defaults.ini \
+    %{buildroot}%{_datadir}/%{name}/conf/defaults.ini
 %else
 # grafana.com defaults
-install -p -m 640 conf/defaults.ini %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
-install -p -m 640 conf/defaults.ini %{buildroot}%{_datadir}/%{name}/conf/defaults.ini
+install -p -m 640 conf/defaults.ini \
+    %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
+install -p -m 640 conf/defaults.ini \
+    %{buildroot}%{_datadir}/%{name}/conf/defaults.ini
 %endif
 install -p -m 640 conf/ldap.toml %{buildroot}%{_sysconfdir}/%{name}/ldap.toml
-install -p -m 640 packaging/rpm/sysconfig/grafana-server %{buildroot}%{_sysconfdir}/sysconfig/grafana-server
+install -p -m 640 packaging/rpm/sysconfig/grafana-server \
+    %{buildroot}%{_sysconfdir}/sysconfig/grafana-server
 
 # config database directory and plugins
 install -d %{buildroot}%{_sharedstatedir}/%{name}
@@ -285,11 +290,13 @@ install -d %{buildroot}%{_localstatedir}/log/%{name}
 
 # systemd service files
 install -d %{buildroot}%{_unitdir} # only needed for manual rpmbuilds
-install -p -m 644 packaging/rpm/systemd/grafana-server.service %{buildroot}%{_unitdir}
+install -p -m 644 packaging/rpm/systemd/grafana-server.service \
+    %{buildroot}%{_unitdir}
 
 # daemon run pid file config for using tmpfs
 install -d %{buildroot}%{_tmpfilesdir}
-echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} {%GRAFANA_GROUP} -" >%{buildroot}%{_tmpfilesdir}/%{name}.conf
+echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} {%GRAFANA_GROUP} -" \
+    > %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %pre
 getent group %{GRAFANA_GROUP} >/dev/null || groupadd -r %{GRAFANA_GROUP}
