@@ -55,6 +55,62 @@ BuildRequires: golang-github-lib-pq-devel
 BuildRequires: golang-github-mattn-go-isatty-devel
 %endif
 
+# Declare bundled/vendor golang devel packages - not (yet) in Fedora
+Provides: bundled(golang-github-benbjohnson-devel)
+Provides: bundled(golang-github-codahale-devel)
+Provides: bundled(golang-github-codegangsta-devel)
+Provides: bundled(golang-github-facebookgo-devel)
+Provides: bundled(golang-github-fatih-devel)
+Provides: bundled(golang-github-golang-devel)
+Provides: bundled(golang-github-go-macaron-devel)
+Provides: bundled(golang-github-gosimple-devel)
+Provides: bundled(golang-github-go-stack-devel)
+Provides: bundled(golang-github-go-xorm-devel)
+Provides: bundled(golang-github-grafana-devel)
+Provides: bundled(golang-github-hashicorp-devel)
+Provides: bundled(golang-github-inconshreveable-devel)
+Provides: bundled(golang-github-klauspost-devel)
+Provides: bundled(golang-github-mattn-devel)
+Provides: bundled(golang-github-oklog-devel)
+Provides: bundled(golang-github-opentracing-devel)
+Provides: bundled(golang-github-rainycape-devel)
+Provides: bundled(golang-github-teris-io-devel)
+Provides: bundled(golang-github-uber-devel)
+Provides: bundled(golang-github-Unknwon-devel)
+Provides: bundled(golang-github-VividCortex-devel)
+Provides: bundled(golang-github-yudai-devel)
+Provides: bundled(golang-gopkg-alexcesaro-devel)
+Provides: bundled(golang-gopkg-asn1-ber-v1-devel)
+Provides: bundled(golang-gopkg-bufio-v1-devel)
+Provides: bundled(golang-gopkg-ini-v1-devel)
+Provides: bundled(golang-gopkg-macaron-v1-devel)
+Provides: bundled(golang-gopkg-mail-v2-devel)
+Provides: bundled(golang-gopkg-redis-v2-devel)
+Provides: bundled(golang-gopkg-square-devel)
+Provides: bundled(golang-gopkg-yaml-v2-devel)
+Provides: bundled(golang-org-x-devel)
+
+# Unstatisfied by BuildRequires on early RHEL / Fedora ONLY
+%if 0%{?fedora} <= 27 || 0%{?rhel} <= 7
+Provides: bundled(golang-google-golangorg-cloud-devel)
+Provides: bundled(golang-github-google-go-genproto-devel)
+Provides: bundled(golang-github-grpc-grpc-go-devel)
+Provides: bundled(golang-gopkg-yaml-devel-v2)
+Provides: bundled(golang-github-aws-aws-sdk-go-devel)
+Provides: bundled(golang-github-davecgh-go-spew-devel)
+Provides: bundled(golang-github-patrickmn-go-cache-devel)
+Provides: bundled(golang-github-golang-appengine-devel)
+Provides: bundled(golang-gopkg-asn1-ber-1-devel)
+Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
+Provides: bundled(golang-github-go-ldap-ldap-devel)
+Provides: bundled(golang-github-gorilla-websocket-devel)
+Provides: bundled(golang-github-go-sql-driver-mysql-devel)
+Provides: bundled(golang-github-hashicorp-go-hclog-devel)
+Provides: bundled(golang-github-hashicorp-go-plugin-devel)
+Provides: bundled(golang-github-lib-pq-devel)
+Provides: bundled(golang-github-mattn-go-isatty-devel)
+%endif
+
 # Declare all nodejs modules bundled in the webpack - this is for security
 # purposes so if nodejs-foo ever needs an update, affected packages can be
 # easily identified. Generated from package-lock.json once the webpack has
@@ -151,62 +207,6 @@ Provides: bundled(nodejs-validate-npm-package-license) = 3.0.4
 Provides: bundled(nodejs-which) = 1.2.14
 Provides: bundled(nodejs-wrappy) = 1.0.2
 Provides: bundled(nodejs-yarn) = 1.13.0
-
-# Declare bundled/vendor golang devel packages - not (yet) in Fedora
-Provides: bundled(golang-github-benbjohnson-devel)
-Provides: bundled(golang-github-codahale-devel)
-Provides: bundled(golang-github-codegangsta-devel)
-Provides: bundled(golang-github-facebookgo-devel)
-Provides: bundled(golang-github-fatih-devel)
-Provides: bundled(golang-github-golang-devel)
-Provides: bundled(golang-github-go-macaron-devel)
-Provides: bundled(golang-github-gosimple-devel)
-Provides: bundled(golang-github-go-stack-devel)
-Provides: bundled(golang-github-go-xorm-devel)
-Provides: bundled(golang-github-grafana-devel)
-Provides: bundled(golang-github-hashicorp-devel)
-Provides: bundled(golang-github-inconshreveable-devel)
-Provides: bundled(golang-github-klauspost-devel)
-Provides: bundled(golang-github-mattn-devel)
-Provides: bundled(golang-github-oklog-devel)
-Provides: bundled(golang-github-opentracing-devel)
-Provides: bundled(golang-github-rainycape-devel)
-Provides: bundled(golang-github-teris-io-devel)
-Provides: bundled(golang-github-uber-devel)
-Provides: bundled(golang-github-Unknwon-devel)
-Provides: bundled(golang-github-VividCortex-devel)
-Provides: bundled(golang-github-yudai-devel)
-Provides: bundled(golang-gopkg-alexcesaro-devel)
-Provides: bundled(golang-gopkg-asn1-ber-v1-devel)
-Provides: bundled(golang-gopkg-bufio-v1-devel)
-Provides: bundled(golang-gopkg-ini-v1-devel)
-Provides: bundled(golang-gopkg-macaron-v1-devel)
-Provides: bundled(golang-gopkg-mail-v2-devel)
-Provides: bundled(golang-gopkg-redis-v2-devel)
-Provides: bundled(golang-gopkg-square-devel)
-Provides: bundled(golang-gopkg-yaml-v2-devel)
-Provides: bundled(golang-org-x-devel)
-
-# Unstatisfied by BuildRequires on early RHEL / Fedora ONLY
-%if 0%{?fedora} <= 27 || 0%{?rhel} <= 7
-Provides: bundled(golang-google-golangorg-cloud-devel)
-Provides: bundled(golang-github-google-go-genproto-devel)
-Provides: bundled(golang-github-grpc-grpc-go-devel)
-Provides: bundled(golang-gopkg-yaml-devel-v2)
-Provides: bundled(golang-github-aws-aws-sdk-go-devel)
-Provides: bundled(golang-github-davecgh-go-spew-devel)
-Provides: bundled(golang-github-patrickmn-go-cache-devel)
-Provides: bundled(golang-github-golang-appengine-devel)
-Provides: bundled(golang-gopkg-asn1-ber-1-devel)
-Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
-Provides: bundled(golang-github-go-ldap-ldap-devel)
-Provides: bundled(golang-github-gorilla-websocket-devel)
-Provides: bundled(golang-github-go-sql-driver-mysql-devel)
-Provides: bundled(golang-github-hashicorp-go-hclog-devel)
-Provides: bundled(golang-github-hashicorp-go-plugin-devel)
-Provides: bundled(golang-github-lib-pq-devel)
-Provides: bundled(golang-github-mattn-go-isatty-devel)
-%endif
 
 %description
 Grafana is an open source, feature rich metrics dashboard and graph editor for
