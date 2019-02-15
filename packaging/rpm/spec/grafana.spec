@@ -53,6 +53,25 @@ BuildRequires: golang-github-hashicorp-go-hclog-devel
 BuildRequires: golang-github-hashicorp-go-plugin-devel
 BuildRequires: golang-github-lib-pq-devel
 BuildRequires: golang-github-mattn-go-isatty-devel
+%else
+# Unsatisfied by BuildRequires on early RHEL / Fedora ONLY
+Provides: bundled(golang-google-golangorg-cloud-devel)
+Provides: bundled(golang-github-google-go-genproto-devel)
+Provides: bundled(golang-github-grpc-grpc-go-devel)
+Provides: bundled(golang-gopkg-yaml-devel-v2)
+Provides: bundled(golang-github-aws-aws-sdk-go-devel)
+Provides: bundled(golang-github-davecgh-go-spew-devel)
+Provides: bundled(golang-github-patrickmn-go-cache-devel)
+Provides: bundled(golang-github-golang-appengine-devel)
+Provides: bundled(golang-gopkg-asn1-ber-1-devel)
+Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
+Provides: bundled(golang-github-go-ldap-ldap-devel)
+Provides: bundled(golang-github-gorilla-websocket-devel)
+Provides: bundled(golang-github-go-sql-driver-mysql-devel)
+Provides: bundled(golang-github-hashicorp-go-hclog-devel)
+Provides: bundled(golang-github-hashicorp-go-plugin-devel)
+Provides: bundled(golang-github-lib-pq-devel)
+Provides: bundled(golang-github-mattn-go-isatty-devel)
 %endif
 
 # Declare bundled/vendor golang devel packages - not (yet) in Fedora
@@ -89,27 +108,6 @@ Provides: bundled(golang-gopkg-redis-v2-devel)
 Provides: bundled(golang-gopkg-square-devel)
 Provides: bundled(golang-gopkg-yaml-v2-devel)
 Provides: bundled(golang-org-x-devel)
-
-# Unstatisfied by BuildRequires on early RHEL / Fedora ONLY
-%if 0%{?fedora} <= 27 || 0%{?rhel} <= 7
-Provides: bundled(golang-google-golangorg-cloud-devel)
-Provides: bundled(golang-github-google-go-genproto-devel)
-Provides: bundled(golang-github-grpc-grpc-go-devel)
-Provides: bundled(golang-gopkg-yaml-devel-v2)
-Provides: bundled(golang-github-aws-aws-sdk-go-devel)
-Provides: bundled(golang-github-davecgh-go-spew-devel)
-Provides: bundled(golang-github-patrickmn-go-cache-devel)
-Provides: bundled(golang-github-golang-appengine-devel)
-Provides: bundled(golang-gopkg-asn1-ber-1-devel)
-Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
-Provides: bundled(golang-github-go-ldap-ldap-devel)
-Provides: bundled(golang-github-gorilla-websocket-devel)
-Provides: bundled(golang-github-go-sql-driver-mysql-devel)
-Provides: bundled(golang-github-hashicorp-go-hclog-devel)
-Provides: bundled(golang-github-hashicorp-go-plugin-devel)
-Provides: bundled(golang-github-lib-pq-devel)
-Provides: bundled(golang-github-mattn-go-isatty-devel)
-%endif
 
 # Declare all nodejs modules bundled in the webpack - this is for security
 # purposes so if nodejs-foo ever needs an update, affected packages can be
