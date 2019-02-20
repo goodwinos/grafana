@@ -36,24 +36,90 @@ BuildRequires:    systemd golang
 # No unbundling for old Fedora / RHEL - just use the Grafana vendor src.
 #
 %if 0%{?fedora} >= 28 || 0%{?rhel} > 7
-BuildRequires: golang-google-golangorg-cloud-devel
-BuildRequires: golang-github-google-go-genproto-devel
-BuildRequires: golang-github-grpc-grpc-go-devel
-BuildRequires: golang-gopkg-yaml-devel-v2
 BuildRequires: golang-github-aws-aws-sdk-go-devel
 BuildRequires: golang-github-davecgh-go-spew-devel
-BuildRequires: golang-github-patrickmn-go-cache-devel
-BuildRequires: golang-github-golang-appengine-devel
-BuildRequires: golang-gopkg-asn1-ber-1-devel
 BuildRequires: golang-github-denisenkom-go-mssqldb-devel
+BuildRequires: golang-github-golang-appengine-devel
 BuildRequires: golang-github-go-ldap-ldap-devel
+BuildRequires: golang-github-google-go-genproto-devel
 BuildRequires: golang-github-gorilla-websocket-devel
 BuildRequires: golang-github-go-sql-driver-mysql-devel
+BuildRequires: golang-github-grpc-grpc-go-devel
 BuildRequires: golang-github-hashicorp-go-hclog-devel
 BuildRequires: golang-github-hashicorp-go-plugin-devel
 BuildRequires: golang-github-lib-pq-devel
 BuildRequires: golang-github-mattn-go-isatty-devel
+BuildRequires: golang-github-patrickmn-go-cache-devel
+BuildRequires: golang-google-golangorg-cloud-devel
+BuildRequires: golang-gopkg-asn1-ber-1-devel
+BuildRequires: golang-gopkg-yaml-devel-v2
+%else
+# Unsatisfied by BuildRequires on early RHEL / Fedora ONLY
+Provides: bundled(golang-github-aws-aws-sdk-go-devel)
+Provides: bundled(golang-github-davecgh-go-spew-devel)
+Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
+Provides: bundled(golang-github-golang-appengine-devel)
+Provides: bundled(golang-github-go-ldap-ldap-devel)
+Provides: bundled(golang-github-google-go-genproto-devel)
+Provides: bundled(golang-github-gorilla-websocket-devel)
+Provides: bundled(golang-github-go-sql-driver-mysql-devel)
+Provides: bundled(golang-github-grpc-grpc-go-devel)
+Provides: bundled(golang-github-hashicorp-go-hclog-devel)
+Provides: bundled(golang-github-hashicorp-go-plugin-devel)
+Provides: bundled(golang-github-lib-pq-devel)
+Provides: bundled(golang-github-mattn-go-isatty-devel)
+Provides: bundled(golang-github-patrickmn-go-cache-devel)
+Provides: bundled(golang-google-golangorg-cloud-devel)
+Provides: bundled(golang-gopkg-asn1-ber-1-devel)
+Provides: bundled(golang-gopkg-yaml-devel-v2)
 %endif
+
+# Declare bundled/vendor golang devel packages - not (yet) in Fedora
+Provides: bundled(golang-github-benbjohnson-clock-devel)
+Provides: bundled(golang-github-codahale-hdrhistogram-devel)
+Provides: bundled(golang-github-codegangsta-cli-devel)
+Provides: bundled(golang-github-facebookgo-inject-devel)
+Provides: bundled(golang-github-facebookgo-structtag-devel)
+Provides: bundled(golang-github-fatih-color-devel)
+Provides: bundled(golang-github-golang-protobuf-devel)
+Provides: bundled(golang-github-go-macaron-binding-devel)
+Provides: bundled(golang-github-go-macaron-gzip-devel)
+Provides: bundled(golang-github-go-macaron-session-devel)
+Provides: bundled(golang-github-gosimple-slug-devel)
+Provides: bundled(golang-github-go-stack-stack-devel)
+Provides: bundled(golang-github-go-xorm-builder-devel)
+Provides: bundled(golang-github-go-xorm-core-devel)
+Provides: bundled(golang-github-go-xorm-xorm-devel)
+Provides: bundled(golang-github-grafana-grafana-plugin-model-devel)
+Provides: bundled(golang-github-hashicorp-go-version-devel)
+Provides: bundled(golang-github-hashicorp-yamux-devel)
+Provides: bundled(golang-github-inconshreveable-log15-devel)
+Provides: bundled(golang-github-klauspost-compress-devel)
+Provides: bundled(golang-github-klauspost-cpuid-devel)
+Provides: bundled(golang-github-klauspost-crc32-devel)
+Provides: bundled(golang-github-mattn-go-colorable-devel)
+Provides: bundled(golang-github-mattn-go-isatty-devel)
+Provides: bundled(golang-github-mattn-go-sqlite3-devel)
+Provides: bundled(golang-github-oklog-run-devel)
+Provides: bundled(golang-github-opentracing-opentracing-go-devel)
+Provides: bundled(golang-github-rainycape-unidecode-devel)
+Provides: bundled(golang-github-teris-io-shortid-devel)
+Provides: bundled(golang-github-uber-jaeger-client-go-devel)
+Provides: bundled(golang-github-uber-jaeger-lib-devel)
+Provides: bundled(golang-github-Unknwon-com-devel)
+Provides: bundled(golang-github-VividCortex-mysqlerr-devel)
+Provides: bundled(golang-github-yudai-gojsondiff-devel)
+Provides: bundled(golang-github-yudai-golcs-devel)
+Provides: bundled(golang-gopkg-alexcesaro-quotedprintable-3-devel)
+Provides: bundled(golang-gopkg-asn1-ber-1-devel)
+Provides: bundled(golang-gopkg-bufio-1-devel)
+Provides: bundled(golang-gopkg-ini-1-devel)
+Provides: bundled(golang-gopkg-macaron-1-devel)
+Provides: bundled(golang-gopkg-mail-2-devel)
+Provides: bundled(golang-gopkg-redis-2-devel)
+Provides: bundled(golang-gopkg-square-jose-2-devel)
+Provides: bundled(golang-gopkg-yaml-2-devel)
+Provides: bundled(golang-org-x-devel)
 
 # Declare all nodejs modules bundled in the webpack - this is for security
 # purposes so if nodejs-foo ever needs an update, affected packages can be
@@ -152,62 +218,6 @@ Provides: bundled(nodejs-which) = 1.2.14
 Provides: bundled(nodejs-wrappy) = 1.0.2
 Provides: bundled(nodejs-yarn) = 1.13.0
 
-# Declare bundled/vendor golang devel packages - not (yet) in Fedora
-Provides: bundled(golang-github-benbjohnson-devel)
-Provides: bundled(golang-github-codahale-devel)
-Provides: bundled(golang-github-codegangsta-devel)
-Provides: bundled(golang-github-facebookgo-devel)
-Provides: bundled(golang-github-fatih-devel)
-Provides: bundled(golang-github-golang-devel)
-Provides: bundled(golang-github-go-macaron-devel)
-Provides: bundled(golang-github-gosimple-devel)
-Provides: bundled(golang-github-go-stack-devel)
-Provides: bundled(golang-github-go-xorm-devel)
-Provides: bundled(golang-github-grafana-devel)
-Provides: bundled(golang-github-hashicorp-devel)
-Provides: bundled(golang-github-inconshreveable-devel)
-Provides: bundled(golang-github-klauspost-devel)
-Provides: bundled(golang-github-mattn-devel)
-Provides: bundled(golang-github-oklog-devel)
-Provides: bundled(golang-github-opentracing-devel)
-Provides: bundled(golang-github-rainycape-devel)
-Provides: bundled(golang-github-teris-io-devel)
-Provides: bundled(golang-github-uber-devel)
-Provides: bundled(golang-github-Unknwon-devel)
-Provides: bundled(golang-github-VividCortex-devel)
-Provides: bundled(golang-github-yudai-devel)
-Provides: bundled(golang-gopkg-alexcesaro-devel)
-Provides: bundled(golang-gopkg-asn1-ber-v1-devel)
-Provides: bundled(golang-gopkg-bufio-v1-devel)
-Provides: bundled(golang-gopkg-ini-v1-devel)
-Provides: bundled(golang-gopkg-macaron-v1-devel)
-Provides: bundled(golang-gopkg-mail-v2-devel)
-Provides: bundled(golang-gopkg-redis-v2-devel)
-Provides: bundled(golang-gopkg-square-devel)
-Provides: bundled(golang-gopkg-yaml-v2-devel)
-Provides: bundled(golang-org-x-devel)
-
-# Unstatisfied by BuildRequires on early RHEL / Fedora ONLY
-%if 0%{?fedora} <= 27 || 0%{?rhel} <= 7
-Provides: bundled(golang-google-golangorg-cloud-devel)
-Provides: bundled(golang-github-google-go-genproto-devel)
-Provides: bundled(golang-github-grpc-grpc-go-devel)
-Provides: bundled(golang-gopkg-yaml-devel-v2)
-Provides: bundled(golang-github-aws-aws-sdk-go-devel)
-Provides: bundled(golang-github-davecgh-go-spew-devel)
-Provides: bundled(golang-github-patrickmn-go-cache-devel)
-Provides: bundled(golang-github-golang-appengine-devel)
-Provides: bundled(golang-gopkg-asn1-ber-1-devel)
-Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
-Provides: bundled(golang-github-go-ldap-ldap-devel)
-Provides: bundled(golang-github-gorilla-websocket-devel)
-Provides: bundled(golang-github-go-sql-driver-mysql-devel)
-Provides: bundled(golang-github-hashicorp-go-hclog-devel)
-Provides: bundled(golang-github-hashicorp-go-plugin-devel)
-Provides: bundled(golang-github-lib-pq-devel)
-Provides: bundled(golang-github-mattn-go-isatty-devel)
-%endif
-
 %description
 Grafana is an open source, feature rich metrics dashboard and graph editor for
 Graphite, InfluxDB & OpenTSDB.
@@ -247,52 +257,56 @@ go run build.go build
 [ ! -d bin/arm ] && ln -sf linux-arm bin/arm
 chmod 644 %{SOURCE2} # silence an rpmlint non-issue
 
-# Set up buildroot directories
-install -d %{buildroot}/%{_datadir}/%{name}
-install -d %{buildroot}/%{_sharedstatedir}/%{name}
-install -d %{buildroot}/%{_localstatedir}/log/%{name}
-install -d %{buildroot}/%{_datadir}/doc/%{name}
-install -d %{buildroot}/%{_sysconfdir}/%{name}
-install -d %{buildroot}/%{_sysconfdir}/sysconfig
-install -d %{buildroot}/%{_sbindir}
-install -d %{buildroot}/%{_bindir}
-install -d -m 750 %{buildroot}/%{_sharedstatedir}/%{name}/data
-install -d -m 750 %{buildroot}/%{_sharedstatedir}/%{name}/data/plugins
-install -d %{buildroot}/%{_rundir}/%{name}
-install -d %{buildroot}%{_tmpfilesdir}
-install -d %{buildroot}/%{_docdir}/%{name}
-install -d %{buildroot}/%{_mandir}/man1
-install -d %{buildroot}/%{_defaultlicensedir}/%{name}
-install -d %{buildroot}/%{_unitdir} # only needed for manual rpmbuilds
-
 # binaries
-install -p -m 755 bin/%{_arch}/%{name}-server %{buildroot}/%{_sbindir}
-install -p -m 755 bin/%{_arch}/%{name}-cli %{buildroot}/%{_sbindir}
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 bin/%{_arch}/%{name}-server %{buildroot}%{_sbindir}
+install -p -m 755 bin/%{_arch}/%{name}-cli %{buildroot}%{_sbindir}
 
 # other shared files, public html, webpack
-cp -a conf public %{buildroot}/%{_datadir}/%{name}
+install -d %{buildroot}%{_datadir}/%{name}
+cp -a conf public %{buildroot}%{_datadir}/%{name}
 
 # man pages
-install -p -m 644 docs/man/man1/* %{buildroot}/%{_mandir}/man1
+install -d %{buildroot}%{_mandir}/man1
+install -p -m 644 docs/man/man1/* %{buildroot}%{_mandir}/man1
 
 # config files
+install -d %{buildroot}%{_sysconfdir}/%{name}
+install -d %{buildroot}%{_sysconfdir}/sysconfig
 %if 0%{?fedora} || 0%{?rhel}
 # distro defaults
-install -p -m 640 conf/distro-defaults.ini %{buildroot}/%{_sysconfdir}/%{name}/grafana.ini
-install -p -m 640 conf/distro-defaults.ini %{buildroot}/%{_datadir}/%{name}/conf/defaults.ini
+install -p -m 640 conf/distro-defaults.ini \
+    %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
+install -p -m 640 conf/distro-defaults.ini \
+    %{buildroot}%{_datadir}/%{name}/conf/defaults.ini
 %else
 # grafana.com defaults
-install -p -m 640 conf/defaults.ini %{buildroot}/%{_sysconfdir}/%{name}/grafana.ini
-install -p -m 640 conf/defaults.ini %{buildroot}/%{_datadir}/%{name}/conf/defaults.ini
+install -p -m 640 conf/defaults.ini \
+    %{buildroot}%{_sysconfdir}/%{name}/grafana.ini
+install -p -m 640 conf/defaults.ini \
+    %{buildroot}%{_datadir}/%{name}/conf/defaults.ini
 %endif
-install -p -m 640 conf/ldap.toml %{buildroot}/%{_sysconfdir}/%{name}/ldap.toml
-install -p -m 640 packaging/rpm/sysconfig/grafana-server %{buildroot}/%{_sysconfdir}/sysconfig/grafana-server
+install -p -m 640 conf/ldap.toml %{buildroot}%{_sysconfdir}/%{name}/ldap.toml
+install -p -m 640 packaging/rpm/sysconfig/grafana-server \
+    %{buildroot}%{_sysconfdir}/sysconfig/grafana-server
+
+# config database directory and plugins
+install -d %{buildroot}%{_sharedstatedir}/%{name}
+install -d -m 750 %{buildroot}%{_sharedstatedir}/%{name}/data
+install -d -m 750 %{buildroot}%{_sharedstatedir}/%{name}/data/plugins
+
+# log directory
+install -d %{buildroot}%{_localstatedir}/log/%{name}
 
 # systemd service files
-install -p -m 644 packaging/rpm/systemd/grafana-server.service %{buildroot}/%{_unitdir}
+install -d %{buildroot}%{_unitdir} # only needed for manual rpmbuilds
+install -p -m 644 packaging/rpm/systemd/grafana-server.service \
+    %{buildroot}%{_unitdir}
 
 # daemon run pid file config for using tmpfs
-echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} {%GRAFANA_GROUP} -" >%{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -d %{buildroot}%{_tmpfilesdir}
+echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} {%GRAFANA_GROUP} -" \
+    > %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %pre
 getent group %{GRAFANA_GROUP} >/dev/null || groupadd -r %{GRAFANA_GROUP}
