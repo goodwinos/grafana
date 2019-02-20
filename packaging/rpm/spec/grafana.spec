@@ -1,6 +1,6 @@
 Name:             grafana
 Version:          5.4.3
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          ASL 2.0
 URL:              https://grafana.org
@@ -365,6 +365,15 @@ exit 0
 %doc PLUGIN_DEV.md README.md ROADMAP.md UPGRADING_DEPENDENCIES.md
 
 %changelog
+* Wed Feb 20 2019 Xavier Bachelot <xavier@bachelot.org> 5.4.3-9
+- Remove extraneous slash (cosmetic)
+- Create directories just before moving stuff in them
+- Truncate long lines
+- Group all golang stuff
+- Simplify BuildRequires/bundled Provides
+- Sort BuildRequires/bundled Provides
+- Fix bundled go packages Provides
+
 * Fri Feb 15 2019 Mark Goodwin <mgoodwin@redhat.com> 5.4.3-8
 - add BuildRequires (and unbundle) vendor sources available in Fedora
 - declare Provides for remaining (bundled) vendor go sources
