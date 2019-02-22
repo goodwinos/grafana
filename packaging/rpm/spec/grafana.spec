@@ -1,6 +1,6 @@
 Name:             grafana
 Version:          5.4.3
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          ASL 2.0
 URL:              https://grafana.org
@@ -37,51 +37,131 @@ BuildRequires:    systemd golang
 #
 %if 0%{?fedora} >= 28 || 0%{?rhel} > 7
 BuildRequires: golang-github-aws-aws-sdk-go-devel
+BuildRequires: golang-github-beorn7-perks-devel
+BuildRequires: golang-github-bmizerany-assert-devel
+BuildRequires: golang-github-bradfitz-gomemcache-devel
+BuildRequires: golang-github-BurntSushi-toml-devel
+BuildRequires: golang-github-codegangsta-cli-devel
 BuildRequires: golang-github-davecgh-go-spew-devel
 BuildRequires: golang-github-denisenkom-go-mssqldb-devel
+BuildRequires: golang-github-fatih-color-devel
+BuildRequires: golang-github-go-ini-ini-devel
 BuildRequires: golang-github-golang-appengine-devel
+BuildRequires: golang-github-golang-sys-devel
 BuildRequires: golang-github-go-ldap-ldap-devel
+BuildRequires: golang-github-go-macaron-inject-devel
 BuildRequires: golang-github-google-go-genproto-devel
+BuildRequires: golang-github-gopherjs-devel
 BuildRequires: golang-github-gorilla-websocket-devel
 BuildRequires: golang-github-go-sql-driver-mysql-devel
 BuildRequires: golang-github-grpc-grpc-go-devel
 BuildRequires: golang-github-hashicorp-go-hclog-devel
 BuildRequires: golang-github-hashicorp-go-plugin-devel
+BuildRequires: golang-github-hashicorp-yamux-devel
+BuildRequires: golang-github-jmespath-go-jmespath-devel
+BuildRequires: golang-github-jtolds-gls-devel
+BuildRequires: golang-github-klauspost-cpuid-devel
+BuildRequires: golang-github-klauspost-crc32-devel
+BuildRequires: golang-github-kr-pretty-devel
+BuildRequires: golang-github-kr-text-devel
 BuildRequires: golang-github-lib-pq-devel
+BuildRequires: golang-github-mattn-go-colorable-devel
 BuildRequires: golang-github-mattn-go-isatty-devel
+BuildRequires: golang-github-mattn-go-sqlite3-devel
+BuildRequires: golang-github-matttproud-golang_protobuf_extensions-devel
+BuildRequires: golang-github-mitchellh-go-testing-interface-devel
 BuildRequires: golang-github-patrickmn-go-cache-devel
+BuildRequires: golang-github-pkg-errors-devel
+BuildRequires: golang-github-prometheus-client_golang-devel
+BuildRequires: golang-github-prometheus-client_model-devel
+BuildRequires: golang-github-prometheus-common-devel
+BuildRequires: golang-github-prometheus-procfs-devel
+BuildRequires: golang-github-sergi-go-diff-devel
+BuildRequires: golang-github-smartystreets-assertions-devel
+BuildRequires: golang-github-smartystreets-goconvey-devel
+BuildRequires: golang-golangorg-crypto-devel
+BuildRequires: golang-golang-org-net-devel
+BuildRequires: golang-golangorg-text-devel
+BuildRequires: golang-googlecode-goauth2-devel
+BuildRequires: golang-googlecode-goprotobuf-devel
 BuildRequires: golang-google-golangorg-cloud-devel
 BuildRequires: golang-gopkg-asn1-ber-1-devel
-BuildRequires: golang-gopkg-yaml-devel-v2
+BuildRequires: golang-gopkg-yaml-devel
+BuildRequires: golang-x-sync-devel
+
+%if 0%{?fedora} > 28
+BuildRequires: golang-github-klauspost-compress-devel
+BuildRequires: golang-gopkg-ini-1-devel
+BuildRequires: golang-gopkg-square-jose-2-devel
 %else
-# Unsatisfied by BuildRequires on early RHEL / Fedora ONLY
+# not available on f28 or earlier, hence bundled
+Provides: bundled(golang-github-klauspost-compress-devel)
+Provides: bundled(golang-gopkg-ini-1-devel)
+Provides: bundled(golang-gopkg-square-jose-2-devel)
+%endif
+
+%else
+# Early RHEL / Fedora - just bundle all vendor sources
 Provides: bundled(golang-github-aws-aws-sdk-go-devel)
+Provides: bundled(golang-github-beorn7-perks-devel)
+Provides: bundled(golang-github-bmizerany-assert-devel)
+Provides: bundled(golang-github-bradfitz-gomemcache-devel)
+Provides: bundled(golang-github-BurntSushi-toml-devel)
+Provides: bundled(golang-github-codegangsta-cli-devel)
 Provides: bundled(golang-github-davecgh-go-spew-devel)
 Provides: bundled(golang-github-denisenkom-go-mssqldb-devel)
+Provides: bundled(golang-github-fatih-color-devel)
+Provides: bundled(golang-github-go-ini-ini-devel)
 Provides: bundled(golang-github-golang-appengine-devel)
+Provides: bundled(golang-github-golang-sys-devel)
 Provides: bundled(golang-github-go-ldap-ldap-devel)
+Provides: bundled(golang-github-go-macaron-inject-devel)
 Provides: bundled(golang-github-google-go-genproto-devel)
+Provides: bundled(golang-github-gopherjs-devel)
 Provides: bundled(golang-github-gorilla-websocket-devel)
 Provides: bundled(golang-github-go-sql-driver-mysql-devel)
 Provides: bundled(golang-github-grpc-grpc-go-devel)
 Provides: bundled(golang-github-hashicorp-go-hclog-devel)
 Provides: bundled(golang-github-hashicorp-go-plugin-devel)
+Provides: bundled(golang-github-hashicorp-yamux-devel)
+Provides: bundled(golang-github-jmespath-go-jmespath-devel)
+Provides: bundled(golang-github-jtolds-gls-devel)
+Provides: bundled(golang-github-klauspost-compress-devel)
+Provides: bundled(golang-github-klauspost-cpuid-devel)
+Provides: bundled(golang-github-klauspost-crc32-devel)
+Provides: bundled(golang-github-kr-pretty-devel)
+Provides: bundled(golang-github-kr-text-devel)
 Provides: bundled(golang-github-lib-pq-devel)
+Provides: bundled(golang-github-mattn-go-colorable-devel)
 Provides: bundled(golang-github-mattn-go-isatty-devel)
+Provides: bundled(golang-github-mattn-go-sqlite3-devel)
+Provides: bundled(golang-github-matttproud-golang_protobuf_extensions-devel)
+Provides: bundled(golang-github-mitchellh-go-testing-interface-devel)
 Provides: bundled(golang-github-patrickmn-go-cache-devel)
+Provides: bundled(golang-github-pkg-errors-devel)
+Provides: bundled(golang-github-prometheus-client_golang-devel)
+Provides: bundled(golang-github-prometheus-client_model-devel)
+Provides: bundled(golang-github-prometheus-common-devel)
+Provides: bundled(golang-github-prometheus-procfs-devel)
+Provides: bundled(golang-github-sergi-go-diff-devel)
+Provides: bundled(golang-github-smartystreets-assertions-devel)
+Provides: bundled(golang-github-smartystreets-goconvey-devel)
+Provides: bundled(golang-golangorg-crypto-devel)
+Provides: bundled(golang-golang-org-net-devel)
+Provides: bundled(golang-golangorg-text-devel)
+Provides: bundled(golang-googlecode-goauth2-devel)
 Provides: bundled(golang-google-golangorg-cloud-devel)
-Provides: bundled(golang-gopkg-asn1-ber-1-devel)
-Provides: bundled(golang-gopkg-yaml-devel-v2)
+Provides: bundled(golang-gopkg-ini-1-devel)
+Provides: bundled(golang-gopkg-square-jose-2-devel)
+Provides: bundled(golang-gopkg-yaml-devel)
+Provides: bundled(golang-x-sync-devel)
 %endif
 
 # Declare bundled/vendor golang devel packages - not (yet) in Fedora
 Provides: bundled(golang-github-benbjohnson-clock-devel)
 Provides: bundled(golang-github-codahale-hdrhistogram-devel)
-Provides: bundled(golang-github-codegangsta-cli-devel)
 Provides: bundled(golang-github-facebookgo-inject-devel)
 Provides: bundled(golang-github-facebookgo-structtag-devel)
-Provides: bundled(golang-github-fatih-color-devel)
-Provides: bundled(golang-github-golang-protobuf-devel)
 Provides: bundled(golang-github-go-macaron-binding-devel)
 Provides: bundled(golang-github-go-macaron-gzip-devel)
 Provides: bundled(golang-github-go-macaron-session-devel)
@@ -92,14 +172,7 @@ Provides: bundled(golang-github-go-xorm-core-devel)
 Provides: bundled(golang-github-go-xorm-xorm-devel)
 Provides: bundled(golang-github-grafana-grafana-plugin-model-devel)
 Provides: bundled(golang-github-hashicorp-go-version-devel)
-Provides: bundled(golang-github-hashicorp-yamux-devel)
 Provides: bundled(golang-github-inconshreveable-log15-devel)
-Provides: bundled(golang-github-klauspost-compress-devel)
-Provides: bundled(golang-github-klauspost-cpuid-devel)
-Provides: bundled(golang-github-klauspost-crc32-devel)
-Provides: bundled(golang-github-mattn-go-colorable-devel)
-Provides: bundled(golang-github-mattn-go-isatty-devel)
-Provides: bundled(golang-github-mattn-go-sqlite3-devel)
 Provides: bundled(golang-github-oklog-run-devel)
 Provides: bundled(golang-github-opentracing-opentracing-go-devel)
 Provides: bundled(golang-github-rainycape-unidecode-devel)
@@ -111,15 +184,10 @@ Provides: bundled(golang-github-VividCortex-mysqlerr-devel)
 Provides: bundled(golang-github-yudai-gojsondiff-devel)
 Provides: bundled(golang-github-yudai-golcs-devel)
 Provides: bundled(golang-gopkg-alexcesaro-quotedprintable-3-devel)
-Provides: bundled(golang-gopkg-asn1-ber-1-devel)
 Provides: bundled(golang-gopkg-bufio-1-devel)
-Provides: bundled(golang-gopkg-ini-1-devel)
 Provides: bundled(golang-gopkg-macaron-1-devel)
 Provides: bundled(golang-gopkg-mail-2-devel)
 Provides: bundled(golang-gopkg-redis-2-devel)
-Provides: bundled(golang-gopkg-square-jose-2-devel)
-Provides: bundled(golang-gopkg-yaml-2-devel)
-Provides: bundled(golang-org-x-devel)
 
 # Declare all nodejs modules bundled in the webpack - this is for security
 # purposes so if nodejs-foo ever needs an update, affected packages can be
@@ -234,14 +302,63 @@ ln -sf %{_builddir}/%{name}-%{version} \
     %{_builddir}/src/github.com/grafana/grafana
 
 %if 0%{?fedora} >= 28 || 0%{?rhel} > 7
-# Unbundle grafana vendor/golang src (provided by BuildRequires),
-# only on newer Fedora / RHEL.
-rm -rf %{_builddir}/src/github.com/grafana/grafana/vendor/cloud.google.com
-rm -rf %{_builddir}/src/github.com/grafana/grafana/vendor/google.golang.org
-rm -rf { %{_builddir}/src/github.com/grafana/grafana/vendor/github.com/\
-beorn7,bmizerany,bradfitz,BurntSushi,davecgh,denisenkom,go-ini,go-ldap,\
-gopherjs,gorilla,go-sql-driver,jmespath,jtolds,kr,lib,matttproud,mitchellh,\
-patrickmn,pkg,prometheus,sergi,smartystreets }
+#
+# Unbundle grafana vendor/golang sources that are provided via BuildRequires
+#
+%define _vendor %{_builddir}/src/github.com/grafana/grafana/vendor
+
+rm -r %{_vendor}/cloud.google.com
+rm -r %{_vendor}/google.golang.org
+rm -r %{_vendor}/golang.org/x/crypto
+rm -r %{_vendor}/golang.org/x/text
+rm -r %{_vendor}/golang.org/x/net
+rm -r %{_vendor}/gopkg.in/asn1-ber.v1
+rm -r %{_vendor}/gopkg.in/yaml.v2
+rm -r %{_vendor}/github.com/beorn7
+rm -r %{_vendor}/github.com/bmizerany
+rm -r %{_vendor}/github.com/bradfitz
+rm -r %{_vendor}/github.com/BurntSushi
+rm -r %{_vendor}/github.com/codegangsta
+rm -r %{_vendor}/github.com/davecgh
+rm -r %{_vendor}/github.com/denisenkom
+rm -r %{_vendor}/github.com/fatih
+rm -r %{_vendor}/github.com/go-ldap
+rm -r %{_vendor}/github.com/go-macaron/inject
+rm -r %{_vendor}/github.com/gopherjs
+rm -r %{_vendor}/github.com/gorilla/websocket
+rm -r %{_vendor}/github.com/go-sql-driver
+rm -r %{_vendor}/github.com/hashicorp/go-hclog
+rm -r %{_vendor}/github.com/hashicorp/yamux
+rm -r %{_vendor}/github.com/jmespath/go-jmespath
+rm -r %{_vendor}/github.com/jtolds/gls
+rm -r %{_vendor}/github.com/klauspost/cpuid
+rm -r %{_vendor}/github.com/klauspost/crc32
+rm -r %{_vendor}/github.com/kr/pretty
+rm -r %{_vendor}/github.com/kr/text
+rm -r %{_vendor}/github.com/lib/pq
+rm -r %{_vendor}/github.com/mattn/go-colorable
+rm -r %{_vendor}/github.com/mattn/go-isatty
+rm -r %{_vendor}/github.com/mattn/go-sqlite3
+rm -r %{_vendor}/github.com/matttproud
+rm -r %{_vendor}/github.com/mitchellh
+rm -r %{_vendor}/github.com/patrickmn
+rm -r %{_vendor}/github.com/pkg/errors
+rm -r %{_vendor}/github.com/prometheus/client_golang
+rm -r %{_vendor}/github.com/prometheus/client_model
+rm -r %{_vendor}/github.com/prometheus/common
+rm -r %{_vendor}/github.com/prometheus/procfs
+rm -r %{_vendor}/github.com/sergi/go-diff
+rm -r %{_vendor}/github.com/smartystreets
+
+# Version dependency issues on f29 and later
+# rm -r %{_vendor}/golang.org/x/oauth2
+
+# Version dependency issues on f28 and earlier
+# rm -r %{_vendor}/golang.org/x/sync
+# rm -r %{_vendor}/github.com/aws
+# rm -r %{_vendor}/github.com/golang
+# rm -r %{_vendor}/github.com/hashicorp/go-plugin
+
 %endif
 
 # Build server-side binaries: grafana-server and grafana-cli
@@ -365,6 +482,9 @@ exit 0
 %doc PLUGIN_DEV.md README.md ROADMAP.md UPGRADING_DEPENDENCIES.md
 
 %changelog
+* Fri Feb 22 2019 Mark Goodwin <mgoodwin@redhat.com> 5.4.3-10
+- tweak spec for available and unavailable (bundled) golang packages
+
 * Wed Feb 20 2019 Xavier Bachelot <xavier@bachelot.org> 5.4.3-9
 - Remove extraneous slash (cosmetic)
 - Create directories just before moving stuff in them
