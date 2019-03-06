@@ -1,6 +1,6 @@
 Name:             grafana
 Version:          5.4.3
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          ASL 2.0
 URL:              https://grafana.org
@@ -18,7 +18,9 @@ Source2:          make_webpack.sh
 Patch0:           000-grafana-fedora.patch
 
 ExclusiveArch:    %{nodejs_arches} # nodejs arches only
-%global           debug_package %{nil} # avoid empty debugsourcefiles.list
+
+# omit golang debugsource, see BZ995136 and related
+%define           _debugsource_template %{nil}
 
 %global           GRAFANA_USER %{name}
 %global           GRAFANA_GROUP %{name}
@@ -29,11 +31,12 @@ Requires(preun):  systemd
 Requires(postun): systemd
 Requires(pre):    shadow-utils
 
-BuildRequires:    systemd golang
+BuildRequires:    systemd
+BuildRequires:    compiler(go-compiler)
 
 #
 # golang build deps. These allow us to unbundle some vendor golang source.
-# No unbundling for old Fedora / RHEL - just use the Grafana vendor src.
+# No unbundling for old Fedora and older RHEL - use the Grafana vendor src.
 #
 %if 0%{?fedora} >= 28 || 0%{?rhel} > 7
 BuildRequires: golang-github-aws-aws-sdk-go-devel
@@ -58,6 +61,7 @@ BuildRequires: golang-github-grpc-grpc-go-devel
 BuildRequires: golang-github-hashicorp-go-hclog-devel
 BuildRequires: golang-github-hashicorp-go-plugin-devel
 BuildRequires: golang-github-hashicorp-yamux-devel
+BuildRequires: golang-github-hashicorp-version-devel
 BuildRequires: golang-github-jmespath-go-jmespath-devel
 BuildRequires: golang-github-jtolds-gls-devel
 BuildRequires: golang-github-klauspost-cpuid-devel
@@ -124,6 +128,7 @@ Provides: bundled(golang-github-grpc-grpc-go-devel)
 Provides: bundled(golang-github-hashicorp-go-hclog-devel)
 Provides: bundled(golang-github-hashicorp-go-plugin-devel)
 Provides: bundled(golang-github-hashicorp-yamux-devel)
+Provides: bundled(golang-github-hashicorp-version-devel)
 Provides: bundled(golang-github-jmespath-go-jmespath-devel)
 Provides: bundled(golang-github-jtolds-gls-devel)
 Provides: bundled(golang-github-klauspost-compress-devel)
@@ -171,7 +176,6 @@ Provides: bundled(golang-github-go-xorm-builder-devel)
 Provides: bundled(golang-github-go-xorm-core-devel)
 Provides: bundled(golang-github-go-xorm-xorm-devel)
 Provides: bundled(golang-github-grafana-grafana-plugin-model-devel)
-Provides: bundled(golang-github-hashicorp-go-version-devel)
 Provides: bundled(golang-github-inconshreveable-log15-devel)
 Provides: bundled(golang-github-oklog-run-devel)
 Provides: bundled(golang-github-opentracing-opentracing-go-devel)
@@ -301,6 +305,10 @@ mkdir -p %{_builddir}/src/github.com/grafana
 ln -sf %{_builddir}/%{name}-%{version} \
     %{_builddir}/src/github.com/grafana/grafana
 
+# remove some development files
+rm -f %{_builddir}/src/github.com/grafana/grafana/public/sass/.sass-lint.yml
+rm -f %{_builddir}/src/github.com/grafana/grafana/public/test/.jshintrc
+
 %if 0%{?fedora} >= 28 || 0%{?rhel} > 7
 #
 # Unbundle grafana vendor/golang sources that are provided via BuildRequires
@@ -329,6 +337,7 @@ rm -r %{_vendor}/github.com/gorilla/websocket
 rm -r %{_vendor}/github.com/go-sql-driver
 rm -r %{_vendor}/github.com/hashicorp/go-hclog
 rm -r %{_vendor}/github.com/hashicorp/yamux
+rm -r %{_vendor}/github.com/hashicorp/go-version
 rm -r %{_vendor}/github.com/jmespath/go-jmespath
 rm -r %{_vendor}/github.com/jtolds/gls
 rm -r %{_vendor}/github.com/klauspost/cpuid
@@ -482,6 +491,13 @@ exit 0
 %doc PLUGIN_DEV.md README.md ROADMAP.md UPGRADING_DEPENDENCIES.md
 
 %changelog
+* Thu Mar 07 2019 Mark Goodwin <mgoodwin@redhat.com> 5.4.3-11
+- tweak after latest feedback, bump to 5.4.3-11 (BZ 1670656)
+- build debuginfo package again
+- unbundle BuildRequires for golang-github-hashicorp-version-devel
+- remove some unneeded development files
+- remove macros from changelog and other rpmlint tweaks
+
 * Fri Feb 22 2019 Mark Goodwin <mgoodwin@redhat.com> 5.4.3-10
 - tweak spec for available and unavailable (bundled) golang packages
 
@@ -500,7 +516,7 @@ exit 0
 - do not attempt to unbundle anything on RHEL < 7 or Fedora < 28
 
 * Thu Feb 07 2019 Mark Goodwin <mgoodwin@redhat.com> 5.4.3-7
-- further refinement for %doc section from Xavier Bachelot
+- further refinement for spec doc section from Xavier Bachelot
 - disable debug_package to avoid empty debugsourcefiles.list
 
 * Wed Feb 06 2019 Mark Goodwin <mgoodwin@redhat.com> 5.4.3-6
