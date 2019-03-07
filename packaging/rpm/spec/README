@@ -1,0 +1,6 @@
+The make_webpack.sh script in this directory can be used to create
+a webpack tarball of all the nodejs dependencies needed to build a
+particular tagged version of grafana, along with the grafana tarball
+itself. After running the script, the two tarballs should be copied
+to your rpmbuild SOURCES. You can then run a native rpm spec build
+using grafana.spec.

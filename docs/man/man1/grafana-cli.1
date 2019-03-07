@@ -1,0 +1,51 @@
+.TH GRAFANA "1" "February 2019" "Grafana cli version 5.4.3" "User Commands"
+.SH NAME
+grafana-cli \- command line administration for the Grafana metrics dashboard and graph editor
+.SH DESCRIPTION
+.SS "NAME:"
+.IP
+grafana-cli
+.SS "USAGE:"
+.IP
+\fBgrafana\-cli\fP [\fIglobal options\fP] \fIcommand\fP [\fIcommand options\fP] [\fIarguments\fP...]
+.SS "COMMANDS:"
+.TP
+plugins
+Manage plugins for grafana
+.TP
+admin
+Grafana admin commands
+.TP
+help, h
+Shows a list of commands or help for one command
+.SS "GLOBAL OPTIONS:"
+.TP
+\fB\-\-pluginsDir\fR value
+path to the grafana plugin directory (default: "/var/lib/grafana/plugins") [$GF_PLUGIN_DIR]
+.TP
+\fB\-\-repo\fR value
+url to the plugin repository (default: "https://grafana.com/api/plugins") [$GF_PLUGIN_REPO]
+.TP
+\fB\-\-pluginUrl\fR value
+Full url to the plugin zip file instead of downloading the plugin from grafana.com/api [$GF_PLUGIN_URL]
+.TP
+\fB\-\-insecure\fR
+Skip TLS verification (insecure)
+.TP
+\fB\-\-debug\fR, \fB\-d\fR
+enable debug logging
+.TP
+\fB\-\-help\fR, \fB\-h\fR
+show help
+.TP
+\fB\-\-version\fR, \fB\-v\fR
+print the version
+.SH "SEE ALSO"
+Additional documentation for
+.B grafana-cli
+is available on-line at
+.BR http://docs.grafana.org/administration/cli/ .
+The full documentation for
+.B Grafana
+is available on-line at
+.BR http://docs.grafana.org/ .
